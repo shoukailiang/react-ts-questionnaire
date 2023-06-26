@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react'
 import styles from '../common.module.scss'
 import { useTitle } from 'ahooks'
 import { Empty, Table, Typography, Tag, Space, Button } from 'antd'
-
+import ListSearch from '@/components/ListSearch/index'
 const questionList = [
   {
     _id: 'q1',
@@ -92,8 +92,12 @@ const Trash: FC = () => {
   const table = (
     <>
       <Space style={{ marginBottom: '10px' }}>
-        <Button disabled={!selectArr.length}>恢复</Button>
-        <Button disabled={!selectArr.length}>删除</Button>
+        <Button type="primary" disabled={!selectArr.length}>
+          恢复
+        </Button>
+        <Button danger disabled={!selectArr.length}>
+          删除
+        </Button>
       </Space>
 
       <Table
@@ -115,7 +119,9 @@ const Trash: FC = () => {
     <div className={styles.container}>
       <header className={styles.header}>
         <Title level={3}>回收站</Title>
-        <div className={styles.right}>(搜索)</div>
+        <div className={styles.right}>
+          <ListSearch />
+        </div>
       </header>
 
       <div className={styles.content}>

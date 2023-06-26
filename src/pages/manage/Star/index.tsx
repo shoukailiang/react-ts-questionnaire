@@ -4,6 +4,7 @@ import styles from '../common.module.scss'
 import { useTitle } from 'ahooks'
 import { Empty } from 'antd'
 import { Typography } from 'antd'
+import ListSearch from '@/components/ListSearch'
 
 const questionList = [
   {
@@ -50,7 +51,9 @@ const Star: FC = () => {
     <div className={styles.container}>
       <header className={styles.header}>
         <Title level={3}>标星问卷</Title>
-        <div className={styles.right}>(搜索)</div>
+        <div className={styles.right}>
+          <ListSearch />
+        </div>
       </header>
       <div className={styles.content}>
         {!questionArr.length && <Empty description="暂时没有更多数据了" />}
