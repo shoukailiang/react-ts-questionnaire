@@ -1,0 +1,27 @@
+.container {
+  background-color: #fff;
+  width: 100%;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  padding: 10px;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 4px 10px #e8e8e8;
+  }
+
+  .top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+
+    .right {
+      display: flex;
+      align-items: center;
+    }
+  }
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+  }
+}

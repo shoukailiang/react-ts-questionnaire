@@ -12,6 +12,7 @@ import List from '@/pages/manage/List'
 import Trash from '@/pages/manage/Trash'
 import Star from '@/pages/manage/Star'
 import Edit from '@/pages/question/Edit'
+import Stat from '@/pages/question/Stat'
 
 const router = createBrowserRouter([
   {
@@ -43,7 +44,7 @@ const router = createBrowserRouter([
             element: <Trash />
           },
           {
-            path: 'star',
+            path: 'stat',
             element: <Star />
           }
         ]
@@ -64,8 +65,8 @@ const router = createBrowserRouter([
         element: <Edit />
       },
       {
-        path: 'star/:id',
-        element: <Star />
+        path: 'stat/:id',
+        element: <Stat />
       }
     ]
   }

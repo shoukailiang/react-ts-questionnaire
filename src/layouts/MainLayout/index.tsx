@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
 import { Outlet } from 'react-router-dom'
 import { Layout, Spin } from 'antd'
-import Logo from '../components/Logo'
-import UserInfo from '../components/UserInfo'
-import styles from './MainLayout.module.scss'
+import Logo from '@/components/Logo'
+import UserInfo from '@/components/UserInfo'
+import styles from './index.module.scss'
 
 const { Header, Content, Footer } = Layout
 

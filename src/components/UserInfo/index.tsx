@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { Button, message } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import { UserOutlined } from '@ant-design/icons'
-import { LOGIN_PATHNAME } from '../router'
+import { LOGIN_PATHNAME } from '@/router'
 const UserInfo: FC = () => {
   const nav = useNavigate()
 

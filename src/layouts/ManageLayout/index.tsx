@@ -7,7 +7,7 @@ import {
   StarOutlined,
   DeleteOutlined
 } from '@ant-design/icons'
-import styles from './ManageLayout.module.scss'
+import styles from './index.module.scss'
 
 const ManageLayout: FC = () => {
   const nav = useNavigate()
@@ -30,10 +30,10 @@ const ManageLayout: FC = () => {
             我的问卷
           </Button>
           <Button
-            type={pathname.startsWith('/manage/star') ? 'default' : 'text'}
+            type={pathname.startsWith('/manage/stat') ? 'default' : 'text'}
             size="large"
             icon={<StarOutlined />}
-            onClick={() => nav('/manage/star')}
+            onClick={() => nav('/manage/stat')}
           >
             星标问卷
           </Button>
