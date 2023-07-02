@@ -8,16 +8,38 @@ import {
   DeleteOutlined
 } from '@ant-design/icons'
 import styles from './index.module.scss'
+import { createQuestionService } from '@/services/question'
+import { useRequest } from 'ahooks'
 
 const ManageLayout: FC = () => {
   const nav = useNavigate()
   const { pathname } = useLocation()
 
+  const { loading, run: handleCreateClick } = useRequest(
+    createQuestionService,
+    {
+      manual: true,
+      onSuccess(data) {
+        console.log(data)
+        if (data.id) {
+          nav(`/question/edit/${data.id}`)
+          message.success('添加成功')
+        }
+      }
+    }
+  )
+
   return (
     <div className={styles.container}>
       <div className={styles.left}>
         <Space direction="vertical">
-          <Button type="primary" size="large" icon={<PlusOutlined />}>
+          <Button
+            type="primary"
+            size="large"
+            icon={<PlusOutlined />}
+            onClick={handleCreateClick}
+            loading={loading}
+          >
             新建问卷
           </Button>
           <Divider style={{ borderTop: 'transparent' }} />
