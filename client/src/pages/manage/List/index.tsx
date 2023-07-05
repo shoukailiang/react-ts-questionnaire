@@ -4,14 +4,14 @@ import styles from '../common.module.scss'
 import { useTitle, useRequest } from 'ahooks'
 import { Empty, Spin, Typography } from 'antd'
 import ListSearch from '@/components/ListSearch/index'
-import { getQuestionListService } from '@/services/question'
+import useLoadQuestionListData from '@/hooks/useLoadQuestionListData'
 
 const List: FC = () => {
   useTitle('问卷列表')
 
-  const { data = {}, loading = false } = useRequest(getQuestionListService)
+  const { data = {}, loading = false } = useLoadQuestionListData()
 
-  const { list, total } = data
+  const { list = [], total } = data
 
   const { Title } = Typography
 

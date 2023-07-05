@@ -13,8 +13,16 @@ export const createQuestionService = async () => {
   return data
 }
 
-export const getQuestionListService = async () => {
+type questionListServiceParamsType = {
+  keyword: string
+  isStar: boolean
+  isDeleted: boolean
+}
+
+export const getQuestionListService = async (
+  opt: Partial<questionListServiceParamsType>
+) => {
   const url = '/api/question'
-  const data = (await axios.get(url)) as DataType
+  const data = (await axios.get(url, { params: opt })) as DataType
   return data
 }
