@@ -5,6 +5,7 @@ import { useTitle } from 'ahooks'
 import { Typography, Spin, Empty } from 'antd'
 import ListSearch from '@/components/ListSearch'
 import useLoadQuestionListData from '@/hooks/useLoadQuestionListData'
+import ListPage from '@/components/ListPage'
 
 const Star: FC = () => {
   useTitle('标星问卷')
@@ -23,18 +24,21 @@ const Star: FC = () => {
         </div>
       </header>
       <div className={styles.content}>
-        {loading && (
+        {loading && !list.length && (
           <div style={{ textAlign: 'center' }}>
             <Spin />
           </div>
         )}
         {!list.length && <Empty description="暂时没有更多数据了" />}
-        {list.length &&
-          list.map((q: any) => {
-            return <QuestionCard key={q._id} {...q}></QuestionCard>
-          })}
+        {list.length === 0
+          ? ''
+          : list.map((q: any) => {
+              return <QuestionCard key={q._id} {...q}></QuestionCard>
+            })}
       </div>
-      <footer className={styles.footer}>分页</footer>
+      <footer className={styles.footer}>
+        <ListPage total={total}></ListPage>
+      </footer>
     </div>
   )
 }

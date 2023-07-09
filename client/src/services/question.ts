@@ -17,6 +17,8 @@ type questionListServiceParamsType = {
   keyword: string
   isStar: boolean
   isDeleted: boolean
+  pageSize: number
+  page: number
 }
 
 export const getQuestionListService = async (

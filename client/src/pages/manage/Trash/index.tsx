@@ -4,7 +4,7 @@ import { useTitle } from 'ahooks'
 import { Empty, Table, Typography, Tag, Space, Button, Spin } from 'antd'
 import ListSearch from '@/components/ListSearch/index'
 import useLoadQuestionListData from '@/hooks/useLoadQuestionListData'
-
+import ListPage from '@/components/ListPage/index'
 const columns = [
   {
     title: '标题',
@@ -95,17 +95,19 @@ const Trash: FC = () => {
       </header>
 
       <div className={styles.content}>
-        {loading && (
+        {loading && !list.length && (
           <div style={{ textAlign: 'center' }}>
             <Spin />
           </div>
         )}
         {!list.length && <Empty description="暂无数据"></Empty>}
 
-        {list.length && table}
+        {list.length === 0 ? '' : table}
       </div>
 
-      <footer className={styles.footer}>分页</footer>
+      <footer className={styles.footer}>
+        <ListPage total={total}></ListPage>
+      </footer>
     </div>
   )
 }
