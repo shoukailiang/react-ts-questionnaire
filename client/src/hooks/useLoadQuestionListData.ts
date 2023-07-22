@@ -22,7 +22,7 @@ const useLoadQuestionListData = (opt: Partial<ParamType> = {}) => {
   const pageSize =
     parseInt(searchParams.get(LIST_PAGE_SIZE_PARAM_KEY) || '') || LIST_PAGE_SIZE
   const page = parseInt(searchParams.get(LIST_PAGE_PARAM_KEY) || '') || 1
-  const { data, loading, error } = useRequest(
+  const { data, loading, error, refresh } = useRequest(
     () => {
       return getQuestionListService({
         keyword,
@@ -37,7 +37,7 @@ const useLoadQuestionListData = (opt: Partial<ParamType> = {}) => {
     }
   )
 
-  return { data, loading, error }
+  return { data, loading, error, refresh }
 }
 
 export default useLoadQuestionListData

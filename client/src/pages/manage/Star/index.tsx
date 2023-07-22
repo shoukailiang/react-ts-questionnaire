@@ -24,7 +24,7 @@ const Star: FC = () => {
         </div>
       </header>
       <div className={styles.content}>
-        {loading && !list.length && (
+        {list.length > 0 && !list.length && (
           <div style={{ textAlign: 'center' }}>
             <Spin />
           </div>

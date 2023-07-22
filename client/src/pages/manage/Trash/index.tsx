@@ -1,10 +1,20 @@
 import React, { FC, useState } from 'react'
 import styles from '../common.module.scss'
-import { useTitle } from 'ahooks'
-import { Empty, Table, Typography, Tag, Space, Button, Spin } from 'antd'
+import { useRequest, useTitle } from 'ahooks'
+import {
+  Typography,
+  Empty,
+  Table,
+  Tag,
+  Space,
+  Button,
+  Spin,
+  message
+} from 'antd'
 import ListSearch from '@/components/ListSearch/index'
 import useLoadQuestionListData from '@/hooks/useLoadQuestionListData'
 import ListPage from '@/components/ListPage/index'
+import { deleteQuestionService, editQuestionService } from '@/services/question'
 const columns = [
   {
     title: '标题',
@@ -45,28 +55,74 @@ const columns = [
 
 const Trash: FC = () => {
   useTitle('回收站')
-  const { data = {}, loading = false } = useLoadQuestionListData({
+  const {
+    data = {},
+    loading = false,
+    error,
+    refresh
+  } = useLoadQuestionListData({
     isDeleted: true
   })
   const { list = [], total = 0 } = data
 
-  const [selectArr, setSelectArr] = useState<string[]>([])
+  const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([])
 
   const { Title } = Typography
 
   const onChange = (selectedRowKeys: string[]) => {
     console.log(selectedRowKeys)
-    setSelectArr(selectedRowKeys)
+    setSelectedRowKeys(selectedRowKeys)
   }
+
+  // 恢复问卷
+  const { run: restore, loading: restoreLoading } = useRequest(
+    async () => {
+      for await (const id of selectedRowKeys) {
+        await editQuestionService(String(id), { isDeleted: false })
+      }
+    },
+    {
+      manual: true,
+      onSuccess() {
+        message.success('恢复成功')
+        // 手动刷新列表
+        refresh()
+        setSelectedRowKeys([])
+      },
+      debounceWait: 500 //防抖
+    }
+  )
+
+  // 彻底删除
+  const { run: completeDelete, loading: deleteLoading } = useRequest(
+    async () => deleteQuestionService(selectedRowKeys),
+    {
+      manual: true,
+      onSuccess() {
+        message.success('删除成功')
+        refresh()
+        setSelectedRowKeys([])
+      }
+    }
+  )
 
   const table = (
     <>
       <Space style={{ marginBottom: '10px' }}>
-        <Button type="primary" disabled={!selectArr.length}>
+        <Button
+          type="primary"
+          disabled={!selectedRowKeys.length || restoreLoading}
+          onClick={restore}
+        >
           恢复
         </Button>
-        <Button danger disabled={!selectArr.length}>
-          删除
+        <Button
+          danger
+          type="primary"
+          disabled={!selectedRowKeys.length || deleteLoading}
+          onClick={completeDelete}
+        >
+          彻底删除
         </Button>
       </Space>
 
@@ -104,10 +160,11 @@ const Trash: FC = () => {
 
         {list.length === 0 ? '' : table}
       </div>
-
-      <footer className={styles.footer}>
-        <ListPage total={total}></ListPage>
-      </footer>
+      {list.length > 0 && (
+        <footer className={styles.footer}>
+          <ListPage total={total}></ListPage>
+        </footer>
+      )}
     </div>
   )
 }
