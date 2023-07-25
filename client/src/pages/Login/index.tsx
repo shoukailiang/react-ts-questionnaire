@@ -1,31 +1,22 @@
-import React, { FC, useEffect } from 'react'
-import styles from './index.module.scss'
+import React, { FC, useEffect, useState } from 'react'
 import { Typography, Space, Button, Form, Input, Checkbox, message } from 'antd'
 import { FormOutlined } from '@ant-design/icons'
 import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { MANAGE_INDEX_PATHNAME, REGISTER_PATHNAME } from '@/router'
 import { useRequest } from 'ahooks'
-import { loginService } from '@/services/user'
-import Cookies from 'js-cookie'
+import { getUserInfoService, loginService } from '@/services/user'
 import { setToken } from '@/utils/user-token'
+import useLoadUserData from '@/hooks/useLoadUserData'
+import { loginReducer } from '@/store/userReducer'
+import styles from './index.module.scss'
 
 const USERNAME_KEY = 'username'
 const PASSWORD_KEY = 'password'
 
-type LoginType = {
-  username: string
-  password: string
-  remember: boolean
-}
-
 const rememberUser = (username: string, password: string) => {
   localStorage.setItem(USERNAME_KEY, username)
   localStorage.setItem(PASSWORD_KEY, password)
-}
-
-const removeUser = () => {
-  localStorage.removeItem(USERNAME_KEY)
-  localStorage.removeItem(PASSWORD_KEY)
 }
 
 const getUser = () => {
@@ -36,6 +27,7 @@ const getUser = () => {
 }
 
 const Login: FC = () => {
+  const [userInfo, setUserInfo] = useState({ username: '', nickname: '' })
   const nav = useNavigate()
   const { Title } = Typography
 
@@ -45,6 +37,24 @@ const Login: FC = () => {
     const { username, password } = getUser()
     form.setFieldsValue({ username, password })
   }, [])
+
+  const dispatch = useDispatch()
+
+  // 加载用户信息
+  const loadUserInfo = () => {
+    getUserInfoService()
+      .then((res) => {
+        // 导航到主页
+        nav(MANAGE_INDEX_PATHNAME)
+        setUserInfo(res as any)
+        dispatch(loginReducer(res as any))
+        message.success('登陆成功')
+      })
+      .catch((err) => {
+        console.log(err)
+        message.error('获取信息失败')
+      })
+  }
 
   // 登陆
   const { run: login, loading: loginLoading } = useRequest(
@@ -58,9 +68,7 @@ const Login: FC = () => {
       onSuccess(res: any) {
         message.success('登陆成功')
         const { token } = res
-        setToken(token)
-        // 导航到主页
-        nav(MANAGE_INDEX_PATHNAME)
+        loadUserInfo()
       }
     }
   )
