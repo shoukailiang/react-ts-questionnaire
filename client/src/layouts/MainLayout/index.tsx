@@ -4,11 +4,13 @@ import { Layout, Spin } from 'antd'
 import Logo from '@/components/Logo'
 import UserInfo from '@/components/UserInfo'
 import styles from './index.module.scss'
+import useLoadUserData from '@/hooks/useLoadUserData'
 import useNavPage from '@/hooks/useNavPage'
 
 const { Header, Content, Footer } = Layout
 
 const MainLayout: FC = () => {
+  useLoadUserData()
   // 判断路由跳转
   useNavPage()
   return (

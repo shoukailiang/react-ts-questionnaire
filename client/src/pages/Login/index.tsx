@@ -6,8 +6,6 @@ import { useDispatch } from 'react-redux'
 import { MANAGE_INDEX_PATHNAME, REGISTER_PATHNAME } from '@/router'
 import { useRequest } from 'ahooks'
 import { getUserInfoService, loginService } from '@/services/user'
-import { setToken } from '@/utils/user-token'
-import useLoadUserData from '@/hooks/useLoadUserData'
 import { loginReducer } from '@/store/userReducer'
 import styles from './index.module.scss'
 
