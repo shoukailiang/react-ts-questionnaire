@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from 'react'
 import { Typography, Space, Button, Form, Input, Checkbox, message } from 'antd'
 import { FormOutlined } from '@ant-design/icons'
 import { Link, useNavigate } from 'react-router-dom'
+import { setToken, setUserInfoToLocal } from '@/utils/user-token'
 import { useDispatch } from 'react-redux'
 import { MANAGE_INDEX_PATHNAME, REGISTER_PATHNAME } from '@/router'
 import { useRequest } from 'ahooks'
@@ -12,7 +13,8 @@ import styles from './index.module.scss'
 const USERNAME_KEY = 'username'
 const PASSWORD_KEY = 'password'
 
-const rememberUser = (username: string, password: string) => {
+// 保存用户登陆信息
+const rememberUser = (username: string, password: string): void => {
   localStorage.setItem(USERNAME_KEY, username)
   localStorage.setItem(PASSWORD_KEY, password)
 }
@@ -45,6 +47,7 @@ const Login: FC = () => {
         // 导航到主页
         nav(MANAGE_INDEX_PATHNAME)
         setUserInfo(res as any)
+        setUserInfoToLocal(res)
         dispatch(loginReducer(res as any))
         message.success('登陆成功')
       })

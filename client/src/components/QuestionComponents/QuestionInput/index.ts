@@ -10,6 +10,6 @@ export * from './interface'
 export default {
   title: '输入框',
   type: 'questionInput',
-  component: QuestionInput, //要和后端统一
+  Component: QuestionInput, //要和后端统一
   defaultProps: QuestionInputDefaultProps
 }
