@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import QuestionCard from '../../../components/QuestionCard/index'
+import QuestionCard from '@/components/QuestionCard/index'
 import styles from '../common.module.scss'
 import { useTitle } from 'ahooks'
 import { Typography, Spin, Empty } from 'antd'

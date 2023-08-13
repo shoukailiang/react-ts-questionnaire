@@ -5,7 +5,6 @@ const QuestionLayout: FC = () => {
   useNavPage()
   return (
     <div style={{ height: '100vh' }}>
-      <div>QuestionLayout left</div>
       <div>
         <Outlet />
       </div>

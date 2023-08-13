@@ -1,9 +1,9 @@
 import { useRequest } from 'ahooks'
-import { getUserInfoService } from '../services/user'
+import { getUserInfoService } from '@/services/user'
 import { useEffect, useState } from 'react'
 import useGetUserInfo from './useGetUserInfo'
 import { useDispatch } from 'react-redux'
-import { loginReducer } from '../store/userReducer'
+import { loginReducer } from '@/store/userReducer'
 
 const useLoadUserData = () => {
   const { name } = useGetUserInfo()

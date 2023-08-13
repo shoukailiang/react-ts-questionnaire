@@ -5,7 +5,6 @@ import { useTitle, useRequest, useDebounceFn } from 'ahooks'
 import { Empty, Spin, Typography } from 'antd'
 import { useSearchParams } from 'react-router-dom'
 import ListSearch from '@/components/ListSearch/index'
-import useLoadQuestionListData from '@/hooks/useLoadQuestionListData'
 import { LIST_PAGE_SIZE, LIST_SEARCH_PARAM_KEY } from '@/constant'
 import { getQuestionListService } from '@/services/question'
 const List: FC = () => {

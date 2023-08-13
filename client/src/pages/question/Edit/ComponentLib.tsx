@@ -3,11 +3,10 @@ import { Typography } from 'antd'
 import {
   ComponentConfigType,
   componentGroupList
-} from '../../../components/QuestionComponents'
-import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
+} from '@/components/QuestionComponents'
 import styles from './ComponentLib.module.scss'
 import { useDispatch } from 'react-redux'
-import { addComponent } from '../../../store/componentsReducer'
+import { addComponent } from '@/store/componentsReducer'
 import { nanoid } from '@reduxjs/toolkit'
 const { Title } = Typography
 
