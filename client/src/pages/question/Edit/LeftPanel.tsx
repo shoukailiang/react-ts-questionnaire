@@ -2,7 +2,7 @@ import React, { FC, useMemo } from 'react'
 import { AppstoreAddOutlined, BarsOutlined } from '@ant-design/icons'
 import { Tabs, TabsProps } from 'antd'
 import ComponentLib from './ComponentLib'
-
+import Layer from './Layer'
 const LeftPanel: FC = () => {
   const items = useMemo<TabsProps['items']>(() => {
     return [
@@ -24,7 +24,7 @@ const LeftPanel: FC = () => {
             图层
           </span>
         ),
-        children: `Content of Tab Pane 2`
+        children: <Layer />
       }
     ]
   }, [])

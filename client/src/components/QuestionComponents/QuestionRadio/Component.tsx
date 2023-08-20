@@ -14,7 +14,7 @@ const Component: FC<QuestionRadioPropsType> = (props) => {
 
   return (
     <>
-      <Paragraph>{title}</Paragraph>
+      <Paragraph strong>{title}</Paragraph>
       <Radio.Group value={value}>
         <Space direction={isVertical ? 'vertical' : 'horizontal'}>
           {options.map((option, index) => {
