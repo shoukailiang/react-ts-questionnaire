@@ -1,5 +1,5 @@
 import axios, { DataType } from './axios'
-
+import { ComponentInfoType } from '../store/componentsReducer'
 type questionListServiceParamsType = {
   keyword: string
   page: number
@@ -7,6 +7,14 @@ type questionListServiceParamsType = {
   isStar: boolean
   isDeleted: boolean
   inPublished: boolean
+}
+
+type questionInfo = {
+  title: string
+  desc: string
+  js: string
+  css: string
+  componentList: ComponentInfoType[]
 }
 
 export const getQuestionService = async (id: string) => {
@@ -50,5 +58,15 @@ export async function duplicateQuestionService(id: string): Promise<DataType> {
 export async function deleteQuestionService(ids: string[]): Promise<DataType> {
   const url = `/api/question`
   const data = (await axios.delete(url, { data: ids })) as DataType
+  return data
+}
+
+// 保存问卷
+export async function updateQuestionService(
+  id: string,
+  opt: Partial<questionInfo>
+): Promise<DataType> {
+  const url = `/api/question/${id}`
+  const data = (await axios.patch(url, opt)) as DataType
   return data
 }

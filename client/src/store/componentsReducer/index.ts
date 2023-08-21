@@ -3,6 +3,7 @@ import { ComponentPropType } from '@/components/QuestionComponents'
 import produce from 'immer'
 import { getNextSelectedId, insertNewComponent } from '@/utils/utils'
 import cloneDeep from 'lodash.clonedeep'
+import { arrayMove } from '@dnd-kit/sortable'
 export type ComponentInfoType = {
   fe_id: string
   type: string
@@ -182,6 +183,17 @@ export const componentsSlice = createSlice({
         const { isLocked } = selectComponent
         selectComponent.isLocked = !isLocked
       }
+    ),
+
+    sortComponent: produce(
+      (
+        draft: ComponentStateType,
+        action: PayloadAction<{ oldIndex: number; newIndex: number }>
+      ) => {
+        const { oldIndex, newIndex } = action.payload
+        const { componentList } = draft
+        draft.componentList = arrayMove(componentList, oldIndex, newIndex)
+      }
     )
   }
 })
@@ -199,6 +211,7 @@ export const {
   selectLastComponent,
   changeComponentTitle,
   changComponentHidden,
-  changLockHidden
+  changLockHidden,
+  sortComponent
 } = componentsSlice.actions
 export default componentsSlice.reducer
