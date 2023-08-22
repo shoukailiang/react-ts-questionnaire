@@ -35,7 +35,8 @@ const useLoadQuestionData = () => {
       componentList = [],
       desc = '',
       css = '',
-      js = ''
+      js = '',
+      isPublished = false
     } = data
     // 存储到redux store中
     // 设置默认的selectedId
@@ -48,7 +49,7 @@ const useLoadQuestionData = () => {
     dispatch(reset({ componentList, selectedId, copiedComponent: null }))
 
     // 把pageInfo存储到redux store中
-    dispatch(resetPageInfo({ title, desc, css, js }))
+    dispatch(resetPageInfo({ title, desc, css, js, isPublished }))
   }, [data])
 
   return {
