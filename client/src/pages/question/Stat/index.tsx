@@ -1,14 +1,14 @@
 import React, { FC, useState } from 'react'
-import useLoadQuestionData from '../../../hooks/useLoadQuestionData'
+import useLoadQuestionData from '@/hooks/useLoadQuestionData'
 import { Button, Result, Spin } from 'antd'
 import { useTitle } from 'ahooks'
-import useGetPageInfo from '../../../hooks/useGetPageInfo'
+import useGetPageInfo from '@/hooks/useGetPageInfo'
 import { useNavigate } from 'react-router-dom'
 import style from './index.module.scss'
 import StatHeader from './StatHeader'
 import ComponentList from './ComponentList'
 import PageStat from './PageStat'
-
+import ChartStat from './ChartStat'
 const Stat: FC = () => {
   const { loading } = useLoadQuestionData()
   const { isPublished, title } = useGetPageInfo()
@@ -58,7 +58,12 @@ const Stat: FC = () => {
             setSelectComponentType={setSelectComponentType}
           />
         </div>
-        <div className={style.right}>right</div>
+        <div className={style.right}>
+          <ChartStat
+            selectedComponentId={selectComponentId}
+            selectedComponentType={selectComponentType}
+          />
+        </div>
       </>
     )
   }

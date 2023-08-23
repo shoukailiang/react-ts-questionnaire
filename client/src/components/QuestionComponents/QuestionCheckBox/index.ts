@@ -5,6 +5,7 @@
 import QuestionCheckbox from './Component'
 import { QuestionCheckBoxDefaultProps } from './interface'
 import PropComponent from './PropComponent'
+import StatComponent from './StatComponent'
 export * from './interface'
 
 export default {
@@ -12,5 +13,6 @@ export default {
   type: 'questionCheckBox', //要和后端统一
   PropComponent: PropComponent,
   Component: QuestionCheckbox,
-  defaultProps: QuestionCheckBoxDefaultProps
+  defaultProps: QuestionCheckBoxDefaultProps,
+  StatComponent
 }
