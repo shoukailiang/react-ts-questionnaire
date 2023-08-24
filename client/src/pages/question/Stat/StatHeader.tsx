@@ -1,4 +1,4 @@
-import React, { FC, useRef } from 'react'
+import React, { FC, useRef, useMemo } from 'react'
 import styles from './StatHeader.module.scss'
 import { useNavigate, useParams } from 'react-router-dom'
 import {
@@ -12,7 +12,7 @@ import {
   message
 } from 'antd'
 import { CopyOutlined, LeftOutlined, QrcodeOutlined } from '@ant-design/icons'
-import useGetPageInfo from '../../../hooks/useGetPageInfo'
+import useGetPageInfo from '@/hooks/useGetPageInfo'
 import QRcode from 'qrcode.react'
 const { Title } = Typography
 
@@ -31,11 +31,33 @@ const StatHeader: FC = () => {
     message.success('复制成功')
   }
 
-  const getLinkAndQRCodeElem = () => {
-    if (!isPublished) return null
-    const url = `http://localhost:3000/question/${id}` // 拼接url，需要参考c端的规则
+  // const getLinkAndQRCodeElem = () => {
+  //   if (!isPublished) return null
+  //   const url = `http://localhost:3000/question/${id}` // 拼接url，需要参考c端的规则
 
-    // 定义二维码组件
+  //   // 定义二维码组件
+  //   const QRcodeElem = (
+  //     <div>
+  //       <QRcode value={url} size={150}></QRcode>
+  //     </div>
+  //   )
+  //   return (
+  //     <Space>
+  //       <Input ref={urlInputRef} value={url} style={{ width: '300px' }}></Input>
+  //       <Tooltip title="复制链接">
+  //         <Button icon={<CopyOutlined />} onClick={copy}></Button>
+  //       </Tooltip>
+  //       <Popover content={QRcodeElem}>
+  //         <Button icon={<QrcodeOutlined />}></Button>
+  //       </Popover>
+  //     </Space>
+  //   )
+  // }
+
+  // 使用useMemo；考虑到缓存元素是否创建成本较高
+  const LinkAndQRCodeElem = useMemo(() => {
+    if (isPublished) return null
+    const url = `http://localhost:3000/question/${id}` // 拼接url，需要参考c端的规则
     const QRcodeElem = (
       <div>
         <QRcode value={url} size={150}></QRcode>
@@ -52,7 +74,7 @@ const StatHeader: FC = () => {
         </Popover>
       </Space>
     )
-  }
+  }, [id, isPublished])
 
   return (
     <div className={styles['header-wrapper']}>
@@ -65,7 +87,7 @@ const StatHeader: FC = () => {
             <Title level={4}>{title}</Title>
           </Space>
         </div>
-        <div className={styles.main}>{getLinkAndQRCodeElem()}</div>
+        <div className={styles.main}>{LinkAndQRCodeElem}</div>
         <div className={styles.right}>
           <Button type="primary" onClick={() => nav(`/question/edit/${id}`)}>
             编辑问卷

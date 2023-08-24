@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useCallback, useEffect } from 'react'
 import { Typography } from 'antd'
 import {
   ComponentConfigType,
@@ -14,7 +14,7 @@ const getComponent = (c: ComponentConfigType) => {
   const { Component, type, title, defaultProps } = c
   const dispatch = useDispatch()
   // 点击添加到画布
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     dispatch(
       addComponent({
         type,
@@ -25,7 +25,7 @@ const getComponent = (c: ComponentConfigType) => {
         }
       })
     )
-  }
+  }, [])
 
   return (
     <div key={type} className={styles.wrapper} onClick={handleClick}>
