@@ -1,8 +1,8 @@
 import { FileTextOutlined, SettingOutlined } from '@ant-design/icons'
 import { Tabs } from 'antd'
 import React, { FC, useEffect, useState } from 'react'
-import ComponentProp from './ComponentProp'
-import PageSetting from './PageSetting'
+import ComponentProp from '../ComponentProp'
+import PageSetting from '../PageSetting'
 import useGetComponentInfo from '@/hooks/useGetComponentInfo'
 
 // 枚举类型

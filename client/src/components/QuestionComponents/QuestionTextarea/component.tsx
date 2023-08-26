@@ -1,8 +1,5 @@
 import React, { FC } from 'react'
-import {
-  QuestionTextAreaDefaultProps,
-  QuestionTextareaPropsType
-} from './interface'
+import { QuestionTextareaPropsType } from './interface'
 import { Input, Typography } from 'antd'
 
 const { Paragraph } = Typography

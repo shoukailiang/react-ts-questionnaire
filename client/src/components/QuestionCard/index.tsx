@@ -44,17 +44,13 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
   const { confirm } = Modal
 
   // 修改问卷
-  const {
-    run: editStar,
-    error,
-    loading: changeStarLoading
-  } = useRequest(
+  const { run: editStar, loading: changeStarLoading } = useRequest(
     async () => {
       await editQuestionService(_id, { isStar: !isStarState })
     },
     {
       manual: true,
-      onSuccess(res) {
+      onSuccess() {
         setIsStarState(!isStarState) //更新state
         message.success('已标星')
       }
@@ -66,7 +62,7 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
     async () => await duplicateQuestionService(_id),
     {
       manual: true,
-      onSuccess(res: any) {
+      onSuccess(res) {
         message.success('复制成功')
         nav(`/question/edit/${res.id}`)
       }
@@ -111,7 +107,9 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
             )}
             <Link
               onClick={() => {
-                isPublished ? nav('/question/stat/3') : nav('/question/edit/3')
+                isPublished
+                  ? nav(`/question/stat/${_id}`)
+                  : nav(`/question/edit/${_id}`)
               }}
             >
               {title}
@@ -138,7 +136,7 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
             type="text"
             icon={<EditOutlined />}
             onClick={() => {
-              nav('/question/edit/3')
+              nav(`/question/edit/${_id}`)
             }}
           >
             编辑问卷
@@ -149,7 +147,7 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
             icon={<BarChartOutlined />}
             disabled={!isPublished}
             onClick={() => {
-              nav('/question/stat/3')
+              nav(`/question/stat/${_id}`)
             }}
           >
             数据统计

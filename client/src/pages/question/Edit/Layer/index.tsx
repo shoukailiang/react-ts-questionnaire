@@ -7,14 +7,14 @@ import {
   changLockHidden,
   changeComponentTitle,
   changeSelectedId,
-  toggleComponentHidden,
   sortComponent
 } from '@/store/componentsReducer'
-import styles from './Layer.module.scss'
 import classNames from 'classnames'
 import { EyeInvisibleOutlined, LockOutlined } from '@ant-design/icons'
 import SortAbleContainer from '@/components/DragSortable/SortAbleContainer'
 import SortAbleItem from '@/components/DragSortable/SortAbleItem'
+import styles from './index.module.scss'
+
 const Layer: FC = () => {
   const { componentList, selectedId } = useGetComponentInfo()
   const dispatch = useDispatch()

@@ -2,12 +2,10 @@ import React, { FC } from 'react'
 import {
   BarChart,
   Bar,
-  Cell,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer
 } from 'recharts'
 import { QuestionCheckBoxStatType } from './interface'

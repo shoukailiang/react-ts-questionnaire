@@ -1,9 +1,8 @@
 import React, { FC, useState } from 'react'
-import styles from './EditHeader.module.scss'
 import { Button, Typography, Space, Input, Tooltip, message } from 'antd'
 import { EditOutlined, LeftOutlined } from '@ant-design/icons'
 import { useNavigate, useParams } from 'react-router-dom'
-import EditToolBar from './EditToolBar'
+import EditToolBar from '../EditToolBar'
 import useGetPageInfo from '@/hooks/useGetPageInfo'
 import { useDispatch } from 'react-redux'
 import { changeTitle } from '@/store/pageInfoReducer'
@@ -11,6 +10,7 @@ import useGetComponentInfo from '@/hooks/useGetComponentInfo'
 import { useDebounceEffect, useKeyPress, useRequest } from 'ahooks'
 import { editQuestionService, updateQuestionService } from '@/services/question'
 const { Title } = Typography
+import styles from './index.module.scss'
 
 // 显示和修改标题
 const TitleElem: FC = () => {

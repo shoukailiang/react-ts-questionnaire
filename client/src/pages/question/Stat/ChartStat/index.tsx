@@ -3,8 +3,7 @@ import { Typography } from 'antd'
 import { useRequest } from 'ahooks'
 import { getComponentStatService } from '@/services/stat'
 import { useParams } from 'react-router-dom'
-import { getComponentConfigByType } from '../../../components/QuestionComponents'
-import StatComponent from '@/components/QuestionComponents/QuestionCheckBox/StatComponent'
+import { getComponentConfigByType } from '@/components/QuestionComponents'
 
 const { Title } = Typography
 

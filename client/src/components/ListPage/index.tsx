@@ -30,11 +30,11 @@ const ListPage: FC<PropsType> = (prop: PropsType) => {
     setPageSize(_pageSize)
   }, [searchParams])
 
-  const onChange = (_page: any, _pageSize: any) => {
+  const onChange = (_page: number, _pageSize: number) => {
     setCurrent(_page)
     setPageSize(_pageSize)
-    searchParams.set(LIST_PAGE_PARAM_KEY, _page)
-    searchParams.set(LIST_PAGE_SIZE_PARAM_KEY, _pageSize)
+    searchParams.set(LIST_PAGE_PARAM_KEY, _page.toString())
+    searchParams.set(LIST_PAGE_SIZE_PARAM_KEY, _pageSize.toString())
     nav({
       pathname: location.pathname,
       search: searchParams.toString()

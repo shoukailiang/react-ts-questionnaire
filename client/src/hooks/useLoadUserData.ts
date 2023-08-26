@@ -1,34 +1,35 @@
-import { useRequest } from 'ahooks'
-import { getUserInfoService } from '@/services/user'
 import { useEffect, useState } from 'react'
-import useGetUserInfo from './useGetUserInfo'
+import { useRequest } from 'ahooks'
 import { useDispatch } from 'react-redux'
-import { loginReducer } from '@/store/userReducer'
+import useGetUserInfo from './useGetUserInfo'
+import { getUserInfoService } from '../services/user'
+import { loginReducer } from '../store/userReducer'
 
-const useLoadUserData = () => {
-  const { name } = useGetUserInfo()
-  const [waitingUserData, setWaitingUserData] = useState(true)
+function useLoadUserData() {
   const dispatch = useDispatch()
-  const { run: loadUserInfo } = useRequest(getUserInfoService, {
+  const [waitingUserData, setWaitingUserData] = useState(true)
+
+  // ajax
+  const { run } = useRequest(getUserInfoService, {
     manual: true,
-    onSuccess(res) {
-      const { username, nickname } = res
-      dispatch(loginReducer({ name: username, nickname }))
+    onSuccess(result) {
+      const { username, nickname } = result
+      dispatch(loginReducer({ username, nickname }))
     },
     onFinally() {
-      // 最后还需要吧状态改为false
       setWaitingUserData(false)
     }
   })
 
+  // 判断当前 redux store 是否已经存在用户信息
+  const { username } = useGetUserInfo()
   useEffect(() => {
-    // 如果已经有用户信息了，就不用等待了
-    if (name != '') setWaitingUserData(false)
-    else {
-      loadUserInfo()
+    if (username) {
+      setWaitingUserData(false) // 如果 redux store 已经存在用户信息，就不用重新加载了
+      return
     }
-    // ajax加载用户信息
-  }, [name])
+    run() // 如果 redux store 中没有用户信息，则进行加载
+  }, [username])
 
   return { waitingUserData }
 }

@@ -38,11 +38,7 @@ const List: FC = () => {
   }, [keyword])
 
   // 真正加载函数
-  const {
-    loading,
-    run: load,
-    data
-  } = useRequest(
+  const { loading, run: load } = useRequest(
     async () => {
       const data = await getQuestionListService({
         page,
@@ -120,7 +116,7 @@ const List: FC = () => {
         {list.length > 0 &&
           list.map((item: listData) => {
             const { _id } = item
-            console.log(_id)
+            // console.log(_id)
             return <QuestionCard key={_id} {...item}></QuestionCard>
           })}
       </div>

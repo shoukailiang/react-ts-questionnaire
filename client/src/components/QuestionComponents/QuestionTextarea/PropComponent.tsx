@@ -1,7 +1,6 @@
 import React, { FC, useEffect } from 'react'
 import { Form, Input } from 'antd'
 import { QuestionTextareaPropsType } from './interface'
-const { TextArea } = Input
 
 const PropComponent: FC<QuestionTextareaPropsType> = (props) => {
   const { text, placeholder, onChange, disabled } = props

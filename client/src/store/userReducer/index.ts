@@ -1,13 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { getUserInfo } from '@/utils/user-token'
 export type UserStateType = {
-  name: string
+  username: string
   nickname: string
 }
-const { username, nickname } = getUserInfo()
 const initialState: UserStateType = {
-  name: username || '',
-  nickname: nickname || ''
+  username: '',
+  nickname: ''
 }
 const userSlice = createSlice({
   name: 'user',

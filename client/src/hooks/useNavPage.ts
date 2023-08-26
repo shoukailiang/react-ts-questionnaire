@@ -1,34 +1,36 @@
 import { useEffect } from 'react'
-import useGetUserInfo from './useGetUserInfo'
 import { useLocation, useNavigate } from 'react-router-dom'
+import useGetUserInfo from './useGetUserInfo'
 import {
-  LOGIN_PATHNAME,
-  MANAGE_INDEX_PATHNAME,
   isLoginOrRegister,
-  isNoNeedUserInfo
-} from '@/router'
+  isNoNeedUserInfo,
+  MANAGE_INDEX_PATHNAME,
+  LOGIN_PATHNAME
+} from '../router/index'
 
-const useNavPage = () => {
+function useNavPage(waitingUserData: boolean) {
+  const { username } = useGetUserInfo()
   const { pathname } = useLocation()
-  const { name } = useGetUserInfo()
   const nav = useNavigate()
 
   useEffect(() => {
-    // 已经登陆的情况下
-    if (name) {
-      // 如果有name，就跳转到列表页
+    if (waitingUserData) return
+
+    // 已经登录了
+    if (username) {
       if (isLoginOrRegister(pathname)) {
         nav(MANAGE_INDEX_PATHNAME)
-        return
       }
-    } else {
-      // 未登陆的情况下
-      if (isNoNeedUserInfo(pathname)) {
-        return
-      } else {
-        nav(LOGIN_PATHNAME)
-      }
+      return
     }
-  }, [name, pathname])
+
+    // 未登录
+    if (isNoNeedUserInfo(pathname)) {
+      return
+    } else {
+      nav(LOGIN_PATHNAME)
+    }
+  }, [waitingUserData, username, pathname])
 }
+
 export default useNavPage

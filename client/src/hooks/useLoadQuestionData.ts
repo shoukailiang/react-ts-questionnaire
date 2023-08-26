@@ -1,9 +1,9 @@
-import { useCallback, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { getQuestionService } from '@/services/question'
 import { useRequest } from 'ahooks'
 import { useDispatch } from 'react-redux'
-import { ComponentStateType, reset } from '@/store/componentsReducer'
+import { reset } from '@/store/componentsReducer'
 import { resetPageInfo } from '@/store/pageInfoReducer'
 
 const useLoadQuestionData = () => {

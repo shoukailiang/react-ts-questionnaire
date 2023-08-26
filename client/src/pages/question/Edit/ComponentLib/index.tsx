@@ -1,14 +1,14 @@
-import React, { FC, useCallback, useEffect } from 'react'
+import React, { FC, useCallback } from 'react'
 import { Typography } from 'antd'
 import {
   ComponentConfigType,
   componentGroupList
 } from '@/components/QuestionComponents'
-import styles from './ComponentLib.module.scss'
 import { useDispatch } from 'react-redux'
 import { addComponent } from '@/store/componentsReducer'
 import { nanoid } from '@reduxjs/toolkit'
 const { Title } = Typography
+import styles from './index.module.scss'
 
 const getComponent = (c: ComponentConfigType) => {
   const { Component, type, title, defaultProps } = c
@@ -30,7 +30,7 @@ const getComponent = (c: ComponentConfigType) => {
   return (
     <div key={type} className={styles.wrapper} onClick={handleClick}>
       <div className={styles.component}>
-        <Component></Component>
+        <Component />
       </div>
     </div>
   )

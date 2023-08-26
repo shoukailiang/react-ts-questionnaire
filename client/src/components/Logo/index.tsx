@@ -1,8 +1,8 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useState } from 'react'
 import { Space, Typography } from 'antd'
 import { FormOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
-import { HOME_PATHNAME, MANAGE_INDEX_PATHNAME } from '@/router/index'
+import { HOME_PATHNAME } from '@/router/index'
 import styles from './index.module.scss'
 
 const { Title } = Typography

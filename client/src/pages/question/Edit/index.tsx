@@ -1,17 +1,16 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import useLoadQuestionData from '@/hooks/useLoadQuestionData'
-import { useParams } from 'react-router-dom'
-import styles from './index.module.scss'
-import EditCanvas from './EditCanvas'
 import { useDispatch } from 'react-redux'
 import { changeSelectedId } from '@/store/componentsReducer'
+import { useTitle } from 'ahooks'
 import LeftPanel from './LeftPanel'
 import RightPanel from './RightPanel'
 import EditHeader from './EditHeader'
-import { useTitle } from 'ahooks'
+import EditCanvas from './EditCanvas'
+import styles from './index.module.scss'
+
 const Edit: FC = () => {
   useTitle('编辑问卷')
-  const { id = '' } = useParams()
   const { loading, error } = useLoadQuestionData()
   const dispatch = useDispatch()
   // 取消选中状态

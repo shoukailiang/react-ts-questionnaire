@@ -1,8 +1,8 @@
 import React, { FC, useMemo } from 'react'
 import { AppstoreAddOutlined, BarsOutlined } from '@ant-design/icons'
 import { Tabs, TabsProps } from 'antd'
-import ComponentLib from './ComponentLib'
-import Layer from './Layer'
+import ComponentLib from '../ComponentLib'
+import Layer from '../Layer'
 const LeftPanel: FC = () => {
   const items = useMemo<TabsProps['items']>(() => {
     return [

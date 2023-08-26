@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import styles from './EditCanvas.module.scss'
 import { Spin } from 'antd'
 import useGetComponentInfo from '@/hooks/useGetComponentInfo'
 import {
@@ -13,6 +12,8 @@ import classNames from 'classnames'
 import useBindCanvasKeyPress from '@/hooks/useBindCanvasKeyPress'
 import SortAbleItem from '@/components/DragSortable/SortAbleItem'
 import SortAbleContainer from '@/components/DragSortable/SortAbleContainer'
+import styles from './index.module.scss'
+
 type PropsType = {
   loading?: boolean
 }

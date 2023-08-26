@@ -1,16 +1,18 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import { Outlet } from 'react-router-dom'
-import { Layout, Spin } from 'antd'
+import { Layout } from 'antd'
 import Logo from '@/components/Logo'
 import UserInfo from '@/components/UserInfo'
 import styles from './index.module.scss'
 import useNavPage from '@/hooks/useNavPage'
+import useLoadUserData from '@/hooks/useLoadUserData'
 
 const { Header, Content, Footer } = Layout
 
 const MainLayout: FC = () => {
   // 判断路由跳转
-  useNavPage()
+  const { waitingUserData } = useLoadUserData()
+  useNavPage(waitingUserData)
   return (
     <Layout>
       <Header className={styles.header}>

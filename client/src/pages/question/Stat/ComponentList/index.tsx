@@ -1,10 +1,8 @@
-import React, { FC, useState } from 'react'
-import styles from './ComponentList.module.scss'
-import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
-import { getComponent } from '../Edit/EditCanvas'
+import React, { FC } from 'react'
+import useGetComponentInfo from '@/hooks/useGetComponentInfo'
+import { getComponent } from '../../Edit/EditCanvas'
 import classNames from 'classnames'
-import { useDispatch } from 'react-redux'
-import { changeSelectedId } from '../../../store/componentsReducer'
+import styles from './index.module.scss'
 
 type PropsType = {
   selectComponentId: string

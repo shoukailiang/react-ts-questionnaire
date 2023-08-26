@@ -58,7 +58,6 @@ const Trash: FC = () => {
   const {
     data = {},
     loading = false,
-    error,
     refresh
   } = useLoadQuestionListData({
     isDeleted: true

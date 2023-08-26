@@ -20,7 +20,7 @@ const ManageLayout: FC = () => {
     {
       manual: true,
       onSuccess(data) {
-        console.log(data)
+        // console.log(data)
         if (data.id) {
           nav(`/question/edit/${data.id}`)
           message.success('添加成功')

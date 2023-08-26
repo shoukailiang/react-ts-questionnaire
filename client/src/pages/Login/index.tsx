@@ -1,14 +1,12 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect } from 'react'
 import { Typography, Space, Button, Form, Input, Checkbox, message } from 'antd'
 import { FormOutlined } from '@ant-design/icons'
 import { Link, useNavigate } from 'react-router-dom'
-import { setToken, setUserInfoToLocal } from '@/utils/user-token'
-import { useDispatch } from 'react-redux'
 import { MANAGE_INDEX_PATHNAME, REGISTER_PATHNAME } from '@/router'
 import { useRequest } from 'ahooks'
-import { getUserInfoService, loginService } from '@/services/user'
-import { loginReducer } from '@/store/userReducer'
+import { loginService } from '@/services/user'
 import styles from './index.module.scss'
+import { setToken } from '@/utils/user-token'
 
 const USERNAME_KEY = 'username'
 const PASSWORD_KEY = 'password'
@@ -19,7 +17,12 @@ const rememberUser = (username: string, password: string): void => {
   localStorage.setItem(PASSWORD_KEY, password)
 }
 
-const getUser = () => {
+function deleteUserFromStorage() {
+  localStorage.removeItem(USERNAME_KEY)
+  localStorage.removeItem(PASSWORD_KEY)
+}
+
+function getUserInfoFromStorage() {
   return {
     username: localStorage.getItem(USERNAME_KEY),
     password: localStorage.getItem(PASSWORD_KEY)
@@ -27,35 +30,15 @@ const getUser = () => {
 }
 
 const Login: FC = () => {
-  const [userInfo, setUserInfo] = useState({ username: '', nickname: '' })
   const nav = useNavigate()
   const { Title } = Typography
 
   const [form] = Form.useForm()
 
   useEffect(() => {
-    const { username, password } = getUser()
+    const { username, password } = getUserInfoFromStorage()
     form.setFieldsValue({ username, password })
   }, [])
-
-  const dispatch = useDispatch()
-
-  // 加载用户信息
-  const loadUserInfo = () => {
-    getUserInfoService()
-      .then((res) => {
-        // 导航到主页
-        nav(MANAGE_INDEX_PATHNAME)
-        setUserInfo(res as any)
-        setUserInfoToLocal(res)
-        dispatch(loginReducer(res as any))
-        message.success('登陆成功')
-      })
-      .catch((err) => {
-        console.log(err)
-        message.error('获取信息失败')
-      })
-  }
 
   // 登陆
   const { run: login, loading: loginLoading } = useRequest(
@@ -67,22 +50,24 @@ const Login: FC = () => {
     {
       manual: true,
       onSuccess(res: any) {
+        const { token = '' } = res
+        setToken(token) // 存储 token
         message.success('登陆成功')
-        const { token } = res
-        loadUserInfo()
+        // loadUserInfo()
+        nav(MANAGE_INDEX_PATHNAME)
       }
     }
   )
 
   const onFinish = (values: any) => {
     const { username, password, remember } = values
+    login({ username, password }) // 执行 ajax
     if (remember) {
       rememberUser(username, password)
     } else {
       console.log('忘记')
+      deleteUserFromStorage()
     }
-    // 执行登陆
-    login(values)
   }
 
   return (

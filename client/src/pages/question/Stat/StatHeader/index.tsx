@@ -1,5 +1,4 @@
 import React, { FC, useRef, useMemo } from 'react'
-import styles from './StatHeader.module.scss'
 import { useNavigate, useParams } from 'react-router-dom'
 import {
   Button,
@@ -14,6 +13,8 @@ import {
 import { CopyOutlined, LeftOutlined, QrcodeOutlined } from '@ant-design/icons'
 import useGetPageInfo from '@/hooks/useGetPageInfo'
 import QRcode from 'qrcode.react'
+import styles from './index.module.scss'
+
 const { Title } = Typography
 
 const StatHeader: FC = () => {
