@@ -38,8 +38,9 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "prettier": "prettier --write .",
-    "analyze": "source-map-explorer 'build/static/js/*.js'"
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,html,css,scss,md}\"",
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -68,6 +69,7 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
+    "husky": "^8.0.3",
     "node-sass": "^7.0.3",
     "prettier": "^2.8.8"
   }
